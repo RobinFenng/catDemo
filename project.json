@@ -15,6 +15,7 @@
         "src/app.js",
         "src/GameStartScene.js",
         "src/StartUI.js",
-        "src/GameScene.js"
+        "src/GameScene.js",
+        "src/GameConfig.js"
     ]
 }
