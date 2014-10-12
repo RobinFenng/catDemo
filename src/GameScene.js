@@ -10,6 +10,7 @@ var GameLayer =  cc.Layer.extend({
     trapped_action:null,
     active_blocks:null,
     active_nodes:null,
+    step: 0,
     onEnter:function(){
         this._super();
         var bg =  new cc.Sprite(res.bg);
@@ -23,6 +24,29 @@ var GameLayer =  cc.Layer.extend({
         this.initBlocks();
         this.initPlayer();
 
+        cc.eventManager.addListener({
+            event:cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesBegan:function(touches,event){
+                var touch = touches[0];
+                var pos = touch.getLocation();
+
+                var target = event.getCurrentTarget();
+                pos.y  -=OFFSET_Y;
+                var r =  Math.floor(pos.y/BLOCK_YREGION);
+                pos.x -=OFFSET_X+(r%2==1)*OFFSET_ODD;
+                var c =  Math.floor(pos.x / BLOCK_XREGION);
+                if( r>=0&c>=0&r<ROW&c<COL){
+                    if(target.activateBlock(r,c)){
+                        target.step ++;
+                        target.movePlayer();
+
+                    }
+                }
+
+
+            }
+
+        },this);
 
     },
     initBlocks:function () {
@@ -110,10 +134,18 @@ var GameLayer =  cc.Layer.extend({
         for (var i = 0; i < nb; i++) {
             r = Math.floor(cc.random0To1() * 9);
             c = Math.floor(cc.random0To1() * 9);
-            this.activateBlock(r,c);
+            if(this.checkInitBlocks(r,c)){
+                this.activateBlock(r,c);
+            }
         }
 
 
+    },
+    checkInitBlocks: function(r,c){
+        if(r==4&c==4){
+            return false;
+        }
+        return true;
     },
     activateBlock : function(r,c){
         if(!this.active_blocks[r][c]){
@@ -133,6 +165,9 @@ var GameLayer =  cc.Layer.extend({
         }
         return false;
 
+    },
+    movePlayer:function(){
+        console.log("move,move");
     }
 
 });
