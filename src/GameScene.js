@@ -10,6 +10,8 @@ var GameLayer =  cc.Layer.extend({
     trapped_action:null,
     active_blocks:null,
     active_nodes:null,
+    player_c:null,
+    player_r:null,
     step: 0,
     onEnter:function(){
         this._super();
@@ -148,6 +150,7 @@ var GameLayer =  cc.Layer.extend({
         return true;
     },
     activateBlock : function(r,c){
+
         if(!this.active_blocks[r][c]){
             var block = new cc.Sprite(this.block_tex, BLOCK1_RECT);
             block.attr({
@@ -167,7 +170,28 @@ var GameLayer =  cc.Layer.extend({
 
     },
     movePlayer:function(){
-        console.log("move,move");
+        console.log("123");
+       var result =  getMoveRes(this.player_r,this.player_c,vert_passed,hori_passed,this.active_blocks);
+        var gameState = result[0];
+        if(gameState == GameState.ING){
+            var r = result[1];
+            var c = result[2];
+            this.move(r,c);
+
+        }else if(gameState == GameState.WIN){
+            alert("WIN")
+        }else if(gameState == GameState.LOSE){
+            alert("LOSE")
+        }
+    },
+    move:function(r,c){
+
+        this.player.attr({
+            anchorX : 0.5,
+            anchorY : 0,
+            x : OFFSET_X + (r%2==1) * OFFSET_ODD + BLOCK_XREGION * c + BLOCK_W/2,
+            y : OFFSET_Y + BLOCK_YREGION * r - 5
+        });
     }
 
 });

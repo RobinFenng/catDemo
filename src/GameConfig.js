@@ -19,3 +19,26 @@ var    TRAPPED_OY = 0;
 var    START_UI_SIZE = cc.size(256, 454);
 var    FAIL_UI_SIZE = cc.size(292, 277);
 var    WIN_UI_SIZE = cc.size(308, 276);
+
+if(typeof GameState == "undefined") {
+    var GameState = {};
+    GameState.WIN = 1;
+    GameState.LOSE = 2;
+    GameState.ING = 3;
+};
+var vert_passed = [], hori_passed = [];
+for (var r = 0; r < ROW; r++) {
+    vert_passed.push([]);
+    hori_passed.push([]);
+    for (var c = 0; c < COL; c++) {
+        vert_passed[r][c] = false;
+        hori_passed[r][c] = false;
+    }
+}
+var reinit_passed = function(passed) {
+    for (var r = 0; r < ROW; r++) {
+        for (var c = 0; c < COL; c++) {
+            passed[r][c] && (passed[r][c] = false);
+        }
+    }
+};
