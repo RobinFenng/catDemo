@@ -55,7 +55,7 @@ var  getMoveRes  = function(r,c,hori_passed,vert_passed,active_blocks){
     var gameState = GameState.ING;
     var result = -1, temp;
     temp = getDistance(r, c, l_choices, active_blocks, hori_passed, 0);
-    console.log(temp[2]);
+   // console.log(temp[2]);
     if (result == -1 || (temp != -1 && temp[2] < result[2]))
         result = temp;
     temp = getDistance(r, c, t_choices, active_blocks, vert_passed, 0);
@@ -74,6 +74,7 @@ var  getMoveRes  = function(r,c,hori_passed,vert_passed,active_blocks){
     reinit_passed(vert_passed);
 
 
+    console.log("result:"+result);
     if (result == -1) {
 //        if (!this.trapped) {
 //            this.trapped = true;
@@ -128,7 +129,8 @@ var  getMoveRes  = function(r,c,hori_passed,vert_passed,active_blocks){
 
 
 };
-var getDistance  = function(r,c,dir_choices, activate_blocs, passed, cost){
+var ROW_MINUS_1 = ROW-1, COL_MINUS_1 = COL-1;
+var getDistance  = function(r,c,dir_choices, activate_blocks, passed, cost){
 
     passed[r][c] = true;
     if (r <= 0 || r >= ROW_MINUS_1 || c <= 0 || c >= COL_MINUS_1) {
@@ -143,9 +145,9 @@ var getDistance  = function(r,c,dir_choices, activate_blocs, passed, cost){
         nextr = r + choices[i][0];
         nextc = c + choices[i][1];
 
-        if (!activate_blocs[nextr][nextc] && !passed[nextr][nextc]) {
+        if (!activate_blocks[nextr][nextc] && !passed[nextr][nextc]) {
             cost ++;
-            result = getDistance(nextr, nextc, dir_choices, activate_blocs, passed, cost);
+            result = getDistance(nextr, nextc, dir_choices, activate_blocks, passed, cost);
             if (result != -1) {
                 result[0] = nextr;
                 result[1] = nextc;

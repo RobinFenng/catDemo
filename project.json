@@ -16,6 +16,7 @@
         "src/GameStartScene.js",
         "src/StartUI.js",
         "src/GameScene.js",
-        "src/GameConfig.js"
+        "src/GameConfig.js",
+        "src/AI.js"
     ]
 }

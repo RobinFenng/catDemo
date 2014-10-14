@@ -170,14 +170,12 @@ var GameLayer =  cc.Layer.extend({
 
     },
     movePlayer:function(){
-        console.log("123");
        var result =  getMoveRes(this.player_r,this.player_c,vert_passed,hori_passed,this.active_blocks);
         var gameState = result[0];
         if(gameState == GameState.ING){
             var r = result[1];
             var c = result[2];
             this.move(r,c);
-
         }else if(gameState == GameState.WIN){
             alert("WIN")
         }else if(gameState == GameState.LOSE){
@@ -185,7 +183,8 @@ var GameLayer =  cc.Layer.extend({
         }
     },
     move:function(r,c){
-
+       this.player_c = c;
+       this.player_r = r;
         this.player.attr({
             anchorX : 0.5,
             anchorY : 0,
