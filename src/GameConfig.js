@@ -26,6 +26,11 @@ if(typeof GameState == "undefined") {
     GameState.LOSE = 2;
     GameState.ING = 3;
 };
+if(typeof ResultSceneType == "undefined") {
+    var ResultSceneType = {};
+    ResultSceneType.WIN = true;
+    ResultSceneType.LOSE = false;
+};
 var vert_passed = [], hori_passed = [];
 for (var r = 0; r < ROW; r++) {
     vert_passed.push([]);

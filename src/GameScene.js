@@ -13,6 +13,7 @@ var GameLayer =  cc.Layer.extend({
     player_c:null,
     player_r:null,
     step: 0,
+    trapped:false,
     onEnter:function(){
         this._super();
         var bg =  new cc.Sprite(res.bg);
@@ -173,13 +174,23 @@ var GameLayer =  cc.Layer.extend({
        var result =  getMoveRes(this.player_r,this.player_c,vert_passed,hori_passed,this.active_blocks);
         var gameState = result[0];
         if(gameState == GameState.ING){
+            if (!this.trapped) {
+                this.trapped = true;
+                this.player.stopAction(this.moving_action);
+                this.player.runAction(this.trapped_action);
+            }
             var r = result[1];
             var c = result[2];
             this.move(r,c);
         }else if(gameState == GameState.WIN){
-            alert("WIN")
+
+            var scene = new cc.Scene();
+            scene.addChild(new ResultLayer(ResultSceneType.WIN,this.step));
+            cc.director.runScene(scene);
         }else if(gameState == GameState.LOSE){
-            alert("LOSE")
+            var scene = new cc.Scene();
+            scene.addChild(new ResultLayer(ResultSceneType.LOSE,this.step));
+            cc.director.runScene(scene);
         }
     },
     move:function(r,c){
