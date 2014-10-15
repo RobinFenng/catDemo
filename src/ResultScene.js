@@ -8,7 +8,6 @@ var ResultLayer = cc.Layer.extend({
     step:null,
     ctor:function(win,step){
         this._super();
-        console.log("win:"+win+" step:"+step);
         this.win = win;
         this.step = step;
 
@@ -21,7 +20,6 @@ var ResultLayer = cc.Layer.extend({
         });
         this.addChild(bg);
 
-        console.log(this.win);
         if(this.win){
             this.winPanel = new cc.Sprite(res.succeed);
             this.winPanel.x = cc.winSize.width/2;
@@ -64,7 +62,6 @@ var ResultLayer = cc.Layer.extend({
         else if (step < 20) percent = Math.round(85 + 10 * (20-step)/10);
         else percent = 95 - step/2;
 
-
         if(this.win){
 
             this.winPanel.removeAllChildren();
@@ -98,6 +95,7 @@ var ResultLayer = cc.Layer.extend({
             onTouchesBegan:function(touches,event){
                 var touch = touches[0];
                 var pos = touch.getLocation();
+                var target = event.getCurrentTarget();
              //   var target = event.getCurrentTarget();
                 if (pos.y > miny-20 && pos.y < miny + 100) {
                     if (pos.x > cc.winSize.width/2) {
@@ -106,10 +104,10 @@ var ResultLayer = cc.Layer.extend({
                     else {
                         // Share
                         var scene = new cc.Scene();
-                        var layer = new ShareLayer();
+                        var layer = new ShareLayer(target.win,this.step,percent);
                         scene.addChild(layer);
                         cc.director.runScene(scene);
-                    //    target.win ? share(1, step, percent) : share(2);
+                        target.win ? share(1, step, percent) : share(2);
                     }
                 }
 

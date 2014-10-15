@@ -3,8 +3,15 @@
  */
 var ShareLayer = cc.Layer.extend({
 
-        ctor:function(){
+        win:false,
+        step:null,
+        percent:null,
+        ctor:function(win,step,percent){
             this._super(cc.color(0, 0, 0, 188), cc.winSize.width, cc.winSize.height);
+
+            this.win = win;
+            this.step = step;
+            this.percent = percent;
 
             var arrow = new cc.Sprite(res.arrow);
             arrow.anchorX = 1;

@@ -2,13 +2,14 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Cocos2d-html5 Hello World test</title>
+    <title>咩~~~</title>
     <link rel="icon" type="image/GIF" href="res/favicon.ico"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="full-screen" content="yes"/>
     <meta name="screen-orientation" content="portrait"/>
     <meta name="x5-fullscreen" content="true"/>
     <meta name="360-fullscreen" content="true"/>
+    <meta name="viewport" content="user-scalable=no"/>
     <style>
         body, canvas, div {
             -moz-user-select: none;
@@ -21,7 +22,62 @@
 </head>
 <body style="padding:0; margin: 0; background: #000;">
 <canvas id="gameCanvas" width="800" height="450"></canvas>
+<script src="WeixinApi.js"></script>
 <script src="frameworks/cocos2d-html5/CCBoot.js"></script>
 <script src="main.js"></script>
+<script>
+    // 微信分享的数据
+    window.wxData = {
+        "appId": "", // 服务号可以填写appId
+        "imgUrl":'http://jsgame.anzhuoshangdian.com/xyt/res/icon.jpg',
+        "link":'http://1.gameday.sinaapp.com/cat/index.html',
+        "desc":"跑啊，跑神马？你是我的小羊驼～～～",
+        "title":"你是我的小羊驼～～～"
+    };
+
+    function share(m, step, percent){
+        if(m == 0){
+            document.title = window.wxData.desc = "跑啊，跑神马？你是我的小羊驼～～～";
+        }
+        if(m == 1){
+            document.title = window.wxData.desc = "继续刷屏！"+step+"步推倒我的小羊驼，打败"+percent+"%朋友圈的人！你能超过我吗？";
+        }
+        if(m == 2){
+            document.title = window.wxData.desc = "我滴小羊驼呀它又跑掉了，T_T 快帮我抓回来！";
+        }
+
+        console.log(window.wxData.desc);
+
+    };
+
+    WeixinApi.ready(function(Api) {
+
+        // 分享的回调
+        var wxCallbacks = {
+            ready : function() {
+
+            },
+
+            cancel : function(resp) {
+
+            },
+            fail : function(resp) {
+
+            },
+            confirm : function(resp) {
+
+            },
+            all : function(resp) {
+
+            }
+        };
+
+        Api.shareToFriend(wxData, wxCallbacks);
+
+        Api.shareToTimeline(wxData, wxCallbacks);
+
+        Api.shareToWeibo(wxData, wxCallbacks);
+    });
+</script>
 </body>
 </html>

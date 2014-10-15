@@ -75,7 +75,6 @@ var  getMoveRes  = function(r,c,hori_passed,vert_passed,active_blocks){
 
 
     if (result == -1) {
-        console.log("-1-1-1-1");
         if (!active_blocks[r][c-1]){
             moveTor =r;
             moveToc = c-1;
@@ -109,11 +108,9 @@ var  getMoveRes  = function(r,c,hori_passed,vert_passed,active_blocks){
         }
     }
     else if (result[2] == 0) {
-        console.log("00000");
         gameState =  GameState.LOSE;
     }
     else {
-        console.log("elseelse");
         moveTor = result[0];
         moveToc = result[1];
     }
@@ -122,7 +119,6 @@ var  getMoveRes  = function(r,c,hori_passed,vert_passed,active_blocks){
     moveRes[0] = gameState;
     moveRes[1] = moveTor;
     moveRes[2] = moveToc;
-    console.log("r:"+moveTor+" c:"+moveToc);
     return moveRes;
 
 
