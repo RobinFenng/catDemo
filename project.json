@@ -19,7 +19,8 @@
         "src/GameConfig.js",
         "src/AI.js",
         "src/ResultScene.js",
-        "src/ShareScene.js"
+        "src/ShareScene.js",
+        "src/MyLoading.js"
 
     ]
 }

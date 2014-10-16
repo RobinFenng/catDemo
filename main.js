@@ -53,8 +53,11 @@ cc.game.onStart = function(){
     cc.view.setDesignResolutionSize(320, 480, cc.ResolutionPolicy.SHOW_ALL);
     cc.view.resizeWithBrowserSize(true);
     //load resources
-    cc.LoaderScene.preload(g_resources, function () {
+    MyLoaderScene.preload(g_resources, function () {
         cc.director.runScene(new GameStartScene());
     }, this);
+  //  cc.LoaderScene.preload(g_resources, function () {
+//        cc.director.runScene(new GameStartScene());
+//    }, this);
 };
 cc.game.run();
